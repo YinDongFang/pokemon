@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
@@ -17,9 +17,60 @@ import {
   TableBody,
 } from "./ui/table";
 import { Checkbox } from "./ui/checkbox";
+import { useWriteContract } from "wagmi";
+import { abi, address } from "@/contracts/species";
+import { TYPES } from "@/lib/config";
+import { toast } from "sonner";
 
 export function CreateSpeciesDialog() {
   const [count, setCount] = useState<number>(1);
+  const [selected, setSelected] = useState<Species[]>([]);
+
+  const handleSelect = (item: Species) => {
+    setSelected((prev) =>
+      prev.includes(item)
+        ? prev.filter((i) => i !== item)
+        : [...prev, item]
+    );
+  };
+
+  const { writeContractAsync } = useWriteContract();
+  const { run: submit, loading: submitLoading } = useRequest(async () => {
+    const calls = selected.map((item) => writeContractAsync({
+      abi,
+      address,
+      functionName: "addSpecies",
+      args: [{
+        name: item.name,
+        description: item.description,
+        primaryType: TYPES.indexOf(item.primaryType),
+        secondaryType: TYPES.indexOf(item.secondaryType),
+        possibility: item.possibility,
+        baseStats: {
+          hp: item.baseStats.hp,
+          attack: item.baseStats.attack,
+          defense: item.baseStats.defense,
+          sp_attack: item.baseStats.sp_attack,
+          sp_defense: item.baseStats.sp_defense,
+          speed: item.baseStats.speed,
+        },
+        evYield: {
+          hp: item.evYield.hp,
+          attack: item.evYield.attack,
+          defense: item.evYield.defense,
+          sp_attack: item.evYield.sp_attack,
+          sp_defense: item.evYield.sp_defense,
+          speed: item.evYield.speed,
+        },
+      }],
+    }))
+    return Promise.allSettled(calls);
+  });
+
+  const handleSubmit = async () => {
+    if (selected.length === 0) return toast.error("Please select at least one species");
+    submit();
+  };
 
   const {
     run: create,
@@ -33,6 +84,11 @@ export function CreateSpeciesDialog() {
       }).then((res) => res.json()),
     { manual: true, initialValue: { data: [] } }
   );
+
+  const handleCreate = async () => {
+    if (count < 1 || count > 20) return toast.error("Count must be between 1 and 20");
+    create(count);
+  };
 
   return (
     <DialogController id="create">
@@ -51,7 +107,7 @@ export function CreateSpeciesDialog() {
               min={1}
               max={100}
             />
-            <Button onClick={() => create(count)} disabled={loading}>
+            <Button onClick={handleCreate} disabled={loading}>
               {loading ? "Generating..." : "Generate"}
             </Button>
           </div>
@@ -83,10 +139,8 @@ export function CreateSpeciesDialog() {
                 <TableRow key={item.name}>
                   <TableCell>
                     <Checkbox
-                      checked={item.isSelected}
-                      onCheckedChange={() =>
-                        setIsSelected(item.name, !item.isSelected)
-                      }
+                      checked={selected.includes(item)}
+                      onCheckedChange={() => handleSelect(item)}
                     />
                   </TableCell>
                   <TableCell>{item.name}</TableCell>
@@ -115,6 +169,11 @@ export function CreateSpeciesDialog() {
               ))}
             </TableBody>
           </Table>
+          <DialogFooter>
+            <Button onClick={handleSubmit} disabled={submitLoading}>
+              {submitLoading ? "Loading..." : "Submit"}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </DialogController>
