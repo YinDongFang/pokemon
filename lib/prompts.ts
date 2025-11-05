@@ -1,3 +1,5 @@
+import { TYPES } from "./config";
+
 export const buildMonsterDataPrompt = (
   count: number
 ) => `你是一个游戏设计师。请生成共${count}个独特的怪物/宝可梦物种数据，返回JSON格式。
@@ -14,14 +16,14 @@ export const buildMonsterDataPrompt = (
    - speed: 速度
 4. 设置EV收益值（每个属性范围0-3，总和不超过10）
 5. 设置出现概率possibility（1-255，数字越小出现概率越低，数字越大出现概率越高）
-6. 设置种族类型主类型和副类型（用数字表示：1=火，2=水，3=草，4=电，5=冰，6=格斗，7=毒，8=地面，9=飞行，10=超能力，11=虫，12=岩石，13=幽灵，14=龙，15=恶，16=钢，17=妖精，18=普通）
+6. 设置种族类型主类型和副类型（${TYPES.join(", ")}），主类型和副类型不能冲突
 
 返回格式必须是纯JSON，不要任何其他文字：
 [{
   "name": "怪物名字",
   "description": "怪物描述",
-  "primaryType": 1,
-  "secondaryType": 0,
+  "primaryType": "fire",
+  "secondaryType": "normal",
   "possibility": 1,
   "baseStats": {
     "hp": 80,
@@ -41,7 +43,9 @@ export const buildMonsterDataPrompt = (
   }
 }]`;
 
-export const MONSTER_IMAGE_PROMPT_PREFIX = `Create a professional Pokemon-style trading card illustration for a monster creature. The card should feature:
+export const buildMonsterImagePrompt = (
+  monster: any
+) => `Create a professional Pokemon-style trading card illustration for a monster creature. The card should feature:
 
 - A dynamic, vibrant character design in the center
 - Rich, colorful background that matches the creature's type
@@ -51,4 +55,8 @@ export const MONSTER_IMAGE_PROMPT_PREFIX = `Create a professional Pokemon-style 
 - Bright, eye-catching colors
 - Clean, polished artwork suitable for a trading card game
 
-The monster is: `;
+The monster is:
+- name: ${monster.name}
+- description: ${monster.description}
+- primary type: ${monster.primaryType}
+- secondary type: ${monster.secondaryType}`;

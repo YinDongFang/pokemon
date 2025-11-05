@@ -1,0 +1,221 @@
+export const address = process.env.NEXT_PUBLIC_SPECIES_CONTRACT_ADDRESS as `0x${string}`;
+
+export const abi = [
+  { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+  {
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    name: "OwnableInvalidOwner",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "OwnableUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "uint16", name: "id", type: "uint16" },
+    ],
+    name: "SpeciesCreated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "uint16", name: "id", type: "uint16" },
+    ],
+    name: "SpeciesUpdated",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          { internalType: "string", name: "name", type: "string" },
+          { internalType: "uint8", name: "primaryType", type: "uint8" },
+          { internalType: "uint8", name: "secondaryType", type: "uint8" },
+          { internalType: "uint8", name: "possibility", type: "uint8" },
+          {
+            components: [
+              { internalType: "uint8", name: "hp", type: "uint8" },
+              { internalType: "uint8", name: "attack", type: "uint8" },
+              { internalType: "uint8", name: "defense", type: "uint8" },
+              { internalType: "uint8", name: "sp_attack", type: "uint8" },
+              { internalType: "uint8", name: "sp_defense", type: "uint8" },
+              { internalType: "uint8", name: "speed", type: "uint8" },
+            ],
+            internalType: "struct Stats",
+            name: "baseStats",
+            type: "tuple",
+          },
+          {
+            components: [
+              { internalType: "uint8", name: "hp", type: "uint8" },
+              { internalType: "uint8", name: "attack", type: "uint8" },
+              { internalType: "uint8", name: "defense", type: "uint8" },
+              { internalType: "uint8", name: "sp_attack", type: "uint8" },
+              { internalType: "uint8", name: "sp_defense", type: "uint8" },
+              { internalType: "uint8", name: "speed", type: "uint8" },
+            ],
+            internalType: "struct Stats",
+            name: "evYield",
+            type: "tuple",
+          },
+        ],
+        internalType: "struct Species",
+        name: "_species",
+        type: "tuple",
+      },
+    ],
+    name: "addSpecies",
+    outputs: [{ internalType: "uint16", name: "", type: "uint16" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint16", name: "id", type: "uint16" }],
+    name: "getSpecies",
+    outputs: [
+      {
+        components: [
+          { internalType: "string", name: "name", type: "string" },
+          { internalType: "uint8", name: "primaryType", type: "uint8" },
+          { internalType: "uint8", name: "secondaryType", type: "uint8" },
+          { internalType: "uint8", name: "possibility", type: "uint8" },
+          {
+            components: [
+              { internalType: "uint8", name: "hp", type: "uint8" },
+              { internalType: "uint8", name: "attack", type: "uint8" },
+              { internalType: "uint8", name: "defense", type: "uint8" },
+              { internalType: "uint8", name: "sp_attack", type: "uint8" },
+              { internalType: "uint8", name: "sp_defense", type: "uint8" },
+              { internalType: "uint8", name: "speed", type: "uint8" },
+            ],
+            internalType: "struct Stats",
+            name: "baseStats",
+            type: "tuple",
+          },
+          {
+            components: [
+              { internalType: "uint8", name: "hp", type: "uint8" },
+              { internalType: "uint8", name: "attack", type: "uint8" },
+              { internalType: "uint8", name: "defense", type: "uint8" },
+              { internalType: "uint8", name: "sp_attack", type: "uint8" },
+              { internalType: "uint8", name: "sp_defense", type: "uint8" },
+              { internalType: "uint8", name: "speed", type: "uint8" },
+            ],
+            internalType: "struct Stats",
+            name: "evYield",
+            type: "tuple",
+          },
+        ],
+        internalType: "struct Species",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "number", type: "uint256" }],
+    name: "getSpeciesIdByRandomNumber",
+    outputs: [{ internalType: "uint16", name: "", type: "uint16" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "speciesCount",
+    outputs: [{ internalType: "uint16", name: "", type: "uint16" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint16", name: "id", type: "uint16" },
+      {
+        components: [
+          { internalType: "string", name: "name", type: "string" },
+          { internalType: "uint8", name: "primaryType", type: "uint8" },
+          { internalType: "uint8", name: "secondaryType", type: "uint8" },
+          { internalType: "uint8", name: "possibility", type: "uint8" },
+          {
+            components: [
+              { internalType: "uint8", name: "hp", type: "uint8" },
+              { internalType: "uint8", name: "attack", type: "uint8" },
+              { internalType: "uint8", name: "defense", type: "uint8" },
+              { internalType: "uint8", name: "sp_attack", type: "uint8" },
+              { internalType: "uint8", name: "sp_defense", type: "uint8" },
+              { internalType: "uint8", name: "speed", type: "uint8" },
+            ],
+            internalType: "struct Stats",
+            name: "baseStats",
+            type: "tuple",
+          },
+          {
+            components: [
+              { internalType: "uint8", name: "hp", type: "uint8" },
+              { internalType: "uint8", name: "attack", type: "uint8" },
+              { internalType: "uint8", name: "defense", type: "uint8" },
+              { internalType: "uint8", name: "sp_attack", type: "uint8" },
+              { internalType: "uint8", name: "sp_defense", type: "uint8" },
+              { internalType: "uint8", name: "speed", type: "uint8" },
+            ],
+            internalType: "struct Stats",
+            name: "evYield",
+            type: "tuple",
+          },
+        ],
+        internalType: "struct Species",
+        name: "_species",
+        type: "tuple",
+      },
+    ],
+    name: "updateSpecies",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+] as const;
