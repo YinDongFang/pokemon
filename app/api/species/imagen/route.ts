@@ -1,7 +1,28 @@
 import { openai } from "@/lib/openai";
-import { buildMonsterImagePrompt } from "@/lib/prompts";
 import { NextResponse } from "next/server";
 import sharp from "sharp";
+
+const buildMonsterImagePrompt = (
+  monster: any
+) => `Create a professional Pokemon-style trading card illustration for a monster creature. The card should feature:
+
+- Keep same aspect ratio as the example image
+- A dynamic, vibrant character design in the center
+- Rich, colorful background that matches the creature's type
+- High-quality anime/manga art style
+- Detailed creature features and expressions
+- Professional trading card layout with space for text overlays
+- Bright, eye-catching colors
+- Clean, polished artwork suitable for a trading card game
+- Top icon should be the monster's primary type icon
+- Bottom left icon should be the monster's primary type icon, same as top icon
+- Bottom right icon should be the monster's secondary type icon
+
+The monster is:
+- name: ${monster.name}
+- description: ${monster.description}
+- primary type: ${monster.primaryType}
+- secondary type: ${monster.secondaryType}`;
 
 export async function POST(request: Request) {
   const monster = await request.json();

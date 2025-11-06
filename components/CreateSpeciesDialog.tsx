@@ -25,7 +25,7 @@ import {
 import { Checkbox } from "./ui/checkbox";
 import { useWriteContract } from "wagmi";
 import { abi, address } from "@/contracts/species";
-import { TYPES } from "@/lib/config";
+import { TYPES } from "@/lib/types";
 import { toast } from "sonner";
 import {
   Empty,

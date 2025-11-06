@@ -25,7 +25,7 @@ export default function AdminPage() {
   });
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-green-50 via-emerald-50 to-teal-50 relative">
       {/* 装饰性背景元素 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200/30 rounded-full blur-3xl"></div>
@@ -33,7 +33,7 @@ export default function AdminPage() {
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-emerald-200/30 rounded-full blur-3xl"></div>
       </div>
 
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-white/10">
+      <header className="sticky top-0 z-50 bg-white/10 shadow-lg shadow-black/1 backdrop-blur-sm">
         <div className="container flex items-center py-5 justify-between mx-auto px-4">
           <div className="flex items-center gap-3">
             <div className="relative">
