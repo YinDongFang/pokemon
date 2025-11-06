@@ -9,9 +9,9 @@ export interface Stats {
 
 export interface Species {
   name: string;
-  description: string;
-  primaryType: string;
-  secondaryType: string;
+  hash: string;
+  primaryType: number;
+  secondaryType: number;
   possibility: number;
   baseStats: Stats;
   evYield: Stats;

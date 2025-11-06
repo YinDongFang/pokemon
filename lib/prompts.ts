@@ -47,6 +47,7 @@ export const buildMonsterImagePrompt = (
   monster: any
 ) => `Create a professional Pokemon-style trading card illustration for a monster creature. The card should feature:
 
+- Keep same aspect ratio as the example image
 - A dynamic, vibrant character design in the center
 - Rich, colorful background that matches the creature's type
 - High-quality anime/manga art style
